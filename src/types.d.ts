@@ -1,6 +1,7 @@
 import type {Env as HonoEnv} from "hono";
 
 export interface Env extends Record<string, unknown> {
+  TOKEN_SECRET: string; // the secret used to sign JWTs
   DATA_API_URL: string; // MongoDB Data API URL
   DATA_API_KEY: string; // MongoDB Data API Key
   SENDGRID_API_URL: string;

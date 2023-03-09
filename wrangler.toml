@@ -10,5 +10,6 @@ SENDGRID_API_URL = "https://api.sendgrid.com/v3/mail/send"
 SENDGRID_FROM_EMAIL = "info@dicyvpn.com"
 
 # The necessary secrets are:
+# - TOKEN_SECRET
 # - DATA_API_KEY
 # - SENDGRID_API_KEY
