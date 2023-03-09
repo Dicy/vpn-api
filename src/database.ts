@@ -11,3 +11,8 @@ const collections: Record<string, Omit<MongoDBDataAPI, "$cluster" | "$collection
 export const accounts = (env: Env) => {
   return collections["accounts"] || (collections["accounts"] = getDatabase(env).$collection("accounts"));
 };
+
+// accounts pending email verification
+export const pendingAccounts = (env: Env) => {
+  return collections["pendingAccounts"] || (collections["pendingAccounts"] = getDatabase(env).$collection("pendingAccounts"));
+}
