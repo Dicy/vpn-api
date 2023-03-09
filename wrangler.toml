@@ -6,6 +6,9 @@ usage_model= "unbound"
 
 [vars]
 DATA_API_URL = "https://eu-central-1.aws.data.mongodb-api.com/app/data-pfewh/endpoint/data/v1"
+SENDGRID_API_URL = "https://api.sendgrid.com/v3/mail/send"
+SENDGRID_FROM_EMAIL = "info@dicyvpn.com"
 
 # The necessary secrets are:
 # - DATA_API_KEY
+# - SENDGRID_API_KEY
