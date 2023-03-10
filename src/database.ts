@@ -4,7 +4,7 @@ import { Env } from "./types";
 export const getDatabase = (env: Env) => createMongoDBDataAPI({
   urlEndpoint: env.DATA_API_URL,
   apiKey: env.DATA_API_KEY
-}).$cluster("MainCluster").$database("dicyvpn");
+}).$cluster("MainCluster").$database(env.DATABASE);
 
 const collections: Record<string, Omit<MongoDBDataAPI, "$cluster" | "$collection" | "$database">> = {};
 
