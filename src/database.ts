@@ -16,3 +16,7 @@ export const accounts = (env: Env) => {
 export const pendingAccounts = (env: Env) => {
   return collections["pendingAccounts"] || (collections["pendingAccounts"] = getDatabase(env).$collection("pendingAccounts"));
 }
+
+export const betaConfigs = (env: Env) => {
+  return collections["betaConfigs"] || (collections["betaConfigs"] = getDatabase(env).$collection("betaConfigs"));
+}
