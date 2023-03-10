@@ -17,6 +17,10 @@ export const pendingAccounts = (env: Env) => {
   return collections["pendingAccounts"] || (collections["pendingAccounts"] = getDatabase(env).$collection("pendingAccounts"));
 }
 
+export const refreshTokens = (env: Env) => {
+  return collections["refreshTokens"] || (collections["refreshTokens"] = getDatabase(env).$collection("refreshTokens"));
+};
+
 export const betaConfigs = (env: Env) => {
   return collections["betaConfigs"] || (collections["betaConfigs"] = getDatabase(env).$collection("betaConfigs"));
 }

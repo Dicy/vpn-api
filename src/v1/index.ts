@@ -1,11 +1,12 @@
 import {Hono} from "hono";
 import register from "./public/register";
+import login from "./public/login";
 
 const v1 = new Hono<AppEnv>();
 
 const publicRoutes = new Hono<AppEnv>();
 publicRoutes.route("/", register);
-// publicRoutes.route("/", login);
+publicRoutes.route("/", login);
 // publicRoutes.route("/", requestPasswordReset);
 // publicRoutes.route("/", resetPassword);
 // publicRoutes.route("/", verifyEmail);
