@@ -21,6 +21,10 @@ export const refreshTokens = (env: Env) => {
   return collections["refreshTokens"] || (collections["refreshTokens"] = getDatabase(env).$collection("refreshTokens"));
 };
 
+export const passwordResetTokens = (env: Env) => {
+  return collections["passwordResetTokens"] || (collections["passwordResetTokens"] = getDatabase(env).$collection("passwordResetTokens"));
+}
+
 export const betaConfigs = (env: Env) => {
   return collections["betaConfigs"] || (collections["betaConfigs"] = getDatabase(env).$collection("betaConfigs"));
 }
