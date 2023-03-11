@@ -6,7 +6,12 @@ import beta from "./beta";
 const app = new Hono<AppEnv>();
 
 app.use("*", cors({
-	origin: ["https://dicyvpn.com", "http://localhost:8080"] // we can consider adding additional origins here if you don't use port 8080
+	origin(origin: string) {
+		if (origin.startsWith("http://localhost")) {
+			return origin;
+		}
+		return "https://dicyvpn.com";
+	}
 }));
 
 app.route("/v1", v1);
