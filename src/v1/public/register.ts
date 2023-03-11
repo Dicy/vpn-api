@@ -17,7 +17,7 @@ const register = new Hono<AppEnv>();
 register.post("/register", zValidator("json", z.object({
   name: z.string().min(4).max(32).trim(),
   email: z.string().email().trim(),
-  password: z.string().min(8).max(10_000).trim()
+  password: z.string().min(8).max(10_000)
   // TODO: Add captcha
 })), async (c) => {
   const { name, email, password } = c.req.valid("json");

@@ -13,7 +13,7 @@ const REFRESH_TOKEN_EXPIRATION = 60 * 60 * 24 * 30 * 6; // 6 months
 const login = new Hono<AppEnv>();
 login.post("/login", zValidator("json", z.object({
   email: z.string().email().trim(),
-  password: z.string().min(8).max(10_000).trim()
+  password: z.string().min(8).max(10_000)
   // TODO: Add captcha
 })), async (c) => {
   const { email, password } = c.req.valid("json");
