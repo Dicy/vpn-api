@@ -1,6 +1,7 @@
 import {Hono} from "hono";
 import register from "./public/register";
 import login from "./public/login";
+import refreshToken from "./public/refreshToken";
 
 const v1 = new Hono<AppEnv>();
 
@@ -10,7 +11,7 @@ publicRoutes.route("/", login);
 // publicRoutes.route("/", requestPasswordReset);
 // publicRoutes.route("/", resetPassword);
 // publicRoutes.route("/", verifyEmail);
-// publicRoutes.route("/", refreshToken);
+publicRoutes.route("/", refreshToken);
 
 v1.route("/public", publicRoutes);
 

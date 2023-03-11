@@ -11,7 +11,8 @@ app.use("*", cors({
 			return origin;
 		}
 		return "https://dicyvpn.com";
-	}
+	},
+	exposeHeaders: ["X-Auth-Token", "X-Auth-Refresh-Token"],
 }));
 
 app.route("/v1", v1);

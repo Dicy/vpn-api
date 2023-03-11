@@ -1,16 +1,13 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
-import jwt from "@tsndr/cloudflare-worker-jwt";
-
-import { Env } from "../../types";
 import { accounts, refreshTokens } from "../../database";
 import { obfuscate } from "../../utils/stringObfuscation";
 import { Reply } from "../reply";
 import { comparePassword } from "../../utils/passwords";
 import { randomString } from "../../utils/randomString";
+import { getTokenForAccount } from "./utils/token";
 
-const TOKEN_EXPIRATION = 60 * 10; // 10 minutes
 const REFRESH_TOKEN_EXPIRATION = 60 * 60 * 24 * 30 * 6; // 6 months
 
 const login = new Hono<AppEnv>();
@@ -42,7 +39,9 @@ login.post("/login", zValidator("json", z.object({
   const insertResponse = await refreshTokens(c.env).insertOne({
     document: {
       token: refreshToken,
-      accountId: account._id,
+      accountId: {
+        $oid: account._id
+      },
       userAgent: c.req.header("User-Agent") ?? "",
       ip: c.req.header("CF-Connecting-IP") ?? "",
       createdAt: {
@@ -68,13 +67,3 @@ login.post("/login", zValidator("json", z.object({
 });
 
 export default login;
-
-async function getTokenForAccount(account: AccountDocument, refreshTokenId: string, env: Env) {
-  console.log("Generating token for account:", account, refreshTokenId)
-  return await jwt.sign({
-    _id: account._id,
-    refreshTokenId: refreshTokenId,
-    permissionLevel: account.permissionLevel.$numberInt,
-    exp: Math.floor(Date.now() / 1000) + TOKEN_EXPIRATION
-  }, env.TOKEN_SECRET);
-}
