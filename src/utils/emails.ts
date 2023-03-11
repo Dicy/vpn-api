@@ -66,7 +66,7 @@ export default async function sendEmail<T extends keyof EmailTypes>(info: EmailI
     }],
     from: {
       email: env.SENDGRID_FROM_EMAIL,
-      name: "DicyVPN"
+      name: env.SENDGRID_FROM_NAME
     },
     template_id: template.id
   };
