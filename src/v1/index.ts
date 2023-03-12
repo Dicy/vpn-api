@@ -16,7 +16,12 @@ publicRoutes.route("/", passwordReset);
 publicRoutes.route("/", refreshToken);
 v1.route("/public", publicRoutes);
 
+v1.use("/public/*", (c, next) => {
+  c.set("isPublic", true);
+  return next();
+});
 v1.use("*", authMiddleware);
+
 v1.route("/", logout);
 
 export default v1;

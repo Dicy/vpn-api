@@ -16,6 +16,7 @@ declare global {
   export interface AppEnv extends HonoEnv {
     Bindings: Env;
     Variables: {
+      isPublic: boolean;
       accountId: string;
       refreshTokenId: string;
     }
