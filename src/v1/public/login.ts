@@ -1,4 +1,4 @@
-import { Hono } from "hono";
+import { Context, Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { accounts, refreshTokens } from "../../database";
@@ -19,17 +19,19 @@ login.post("/login", zValidator("json", z.object({
   const { email, password } = c.req.valid("json");
 
   const response = await accounts(c.env).findOne<AccountDocument>({
-    filter: {email: obfuscate(email)},
-    projection: {_id: true, password: true, permissionLevel: true},
+    filter: { email: obfuscate(email) },
+    projection: { _id: true, password: true, permissionLevel: true }
   });
 
   if (!response || !response.document) {
+    logFailedAttempt(c, email, "tried to login with wrong email");
     return Reply.unauthorized("Invalid email or password");
   }
 
   const account = response.document;
   const hash = account.password;
   if (!comparePassword(password, hash)) {
+    logFailedAttempt(c, email, "tried to login with wrong password");
     return Reply.unauthorized("Invalid email or password");
   }
   // the password is correct
@@ -51,7 +53,7 @@ login.post("/login", zValidator("json", z.object({
         $date: { $numberLong: Date.now().toString() }
       },
       expiresAt: {
-        $date: {$numberLong: (Date.now() + REFRESH_TOKEN_EXPIRATION * 1000).toString()}
+        $date: { $numberLong: (Date.now() + REFRESH_TOKEN_EXPIRATION * 1000).toString() }
       }
     }
   });
@@ -67,3 +69,13 @@ login.post("/login", zValidator("json", z.object({
 });
 
 export default login;
+
+function logFailedAttempt(c: Context<AppEnv>, email: string, reason: string) {
+  console.log(
+    "IP", c.req.header("CF-Connecting-IP"),
+    reason,
+    email,
+    c.req.header("User-Agent"),
+    "at", new Date().toISOString()
+  );
+}
