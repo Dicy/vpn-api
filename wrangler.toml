@@ -5,6 +5,10 @@ compatibility_date = "2023-03-07"
 usage_model= "unbound"
 logpush = true
 
+kv_namespaces = [
+    { binding = "INVALIDATED_TOKENS", id = "697671d8883b40298b9bf2ec2015ed07", preview_id = "94d823167dfc4b09a9dfad5b616ef44f" }
+]
+
 [vars]
 DATABASE="dicyvpn"
 DATA_API_URL = "https://eu-central-1.aws.data.mongodb-api.com/app/data-pfewh/endpoint/data/v1"
