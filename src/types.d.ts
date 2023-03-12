@@ -15,5 +15,9 @@ interface Env extends Record<string, unknown> {
 declare global {
   export interface AppEnv extends HonoEnv {
     Bindings: Env;
+    Variables: {
+      accountId: string;
+      refreshTokenId: string;
+    }
   }
 }

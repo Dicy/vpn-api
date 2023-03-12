@@ -35,6 +35,8 @@ export const authMiddleware: MiddlewareHandler = async (c, next) => {
       sendInvalidTokenError(c, "token invalidated");
     }
 
+    c.set("accountId", payload._id);
+    c.set("refreshTokenId", payload.refreshTokenId);
     return await next();
   }
   throwMissingToken(c);
