@@ -77,8 +77,11 @@ register.post("/verify-email", zValidator("json", z.object({
   const response = await pendingAccounts(c.env).findOne({
     filter: { _id: { $oid: accountId } }
   });
-  if (!response || !response.document) {
+  if (!response) {
     return Reply.serverError("Failed to find account, please try again");
+  }
+  if (!response.document) {
+    return Reply.ok("This token is not associated with any pending account");
   }
   console.info("Deleting pending account with id:", accountId);
   // delete the pending account
