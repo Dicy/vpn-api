@@ -3,10 +3,6 @@ import { Context, MiddlewareHandler } from "hono";
 import jwt from "@tsndr/cloudflare-worker-jwt";
 
 export const authMiddleware: MiddlewareHandler = async (c, next) => {
-  if (c.get("isPublic")) {
-    return await next();
-  }
-  // route is not public, check if the user is authenticated
   const credentials = c.req.headers.get("Authorization");
 
   if (credentials) {
@@ -28,7 +24,7 @@ export const authMiddleware: MiddlewareHandler = async (c, next) => {
         return;
       }
     } catch (e: any) {
-      sendInvalidTokenError(c, `${e}`);
+      sendInvalidTokenError(c, `${e}`)
       return;
     }
 
