@@ -3,6 +3,7 @@ main = "src/index.ts"
 workers_dev = false
 compatibility_date = "2023-03-07"
 usage_model= "unbound"
+logpush = true
 
 [vars]
 DATABASE="dicyvpn"
